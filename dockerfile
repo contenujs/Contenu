@@ -1,4 +1,4 @@
-FROM alpine-node:10.22
+FROM node:10
 WORKDIR /app
 COPY package.json .
 RUN yarn
