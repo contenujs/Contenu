@@ -1,8 +1,8 @@
-FROM node:10
+FROM alpine-node:10.22
 WORKDIR /app
-COPY package.json package.json
-RUN npm install
+COPY package.json .
+RUN yarn
 COPY . .
-RUN npm run front-build
+RUN yarn front-build
 EXPOSE 8080
 CMD [ "node", "index.js" ]
