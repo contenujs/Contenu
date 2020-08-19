@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>contenu-server-frontend</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      function attachScript() {
+        var s = document.createElement("script");
+        s.setAttribute("src", "/dist/build.js");
+        document.body.appendChild(s);
+      }
+      if (window !== window.parent) {
+        parent.postMessage({ type: "init" }, document.referrer);
+        window.addEventListener(
+          "message",
+          (event) => {
+            if (event.data.type == "init") {
+              if (event.data.envMode == "production") {
+                if (window.localStorage.getItem("contenu_token")) {
+                  attachScript();
+                }
+              } else {
+                attachScript();
+              }
+            }
+          },
+          false
+        );
+      } else {
+        attachScript();
+      }
+    </script>
+  </body>
+</html>
