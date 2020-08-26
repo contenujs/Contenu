@@ -1,4 +1,4 @@
-module.exports = async function (fastify, opts) {
+module.exports = async function(fastify, opts) {
   const bcrypt = require("bcryptjs");
 
   fastify.post("/auth", {
@@ -21,7 +21,7 @@ module.exports = async function (fastify, opts) {
         },
       },
     },
-    handler: async function (request, reply) {
+    handler: async function(request, reply) {
       if (request.body.type == "login") {
         if (!(await this.contenu.appIsReady())) {
           return appReadyException(reply, "You need to setup the app");
@@ -58,8 +58,10 @@ module.exports = async function (fastify, opts) {
           created_at: new Date(Date.now()).toISOString(),
           updated_at: new Date(Date.now()).toISOString(),
         });
+        const token = await reply.jwtSign({});
         reply.send({
           ok: true,
+          token,
           message: "App is ready to management",
         });
         // ===============================================
