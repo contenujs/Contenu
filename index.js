@@ -1,9 +1,10 @@
-const fastify = require("fastify")({ logger: true });
+require("dotenv").config();
+
+const fastify = require("fastify")({ logger: process.env.DEBUG });
 const autoload = require("fastify-autoload");
 const path = require("path");
 const fastifyStatic = require("fastify-static");
 
-require("dotenv").config();
 //register plugins
 fastify
   .register(require("fastify-jwt"), {
@@ -17,6 +18,11 @@ fastify
   })
   .register(fastifyStatic, {
     root: path.join(__dirname, "./front/"),
+  })
+  .register(fastifyStatic, {
+    root: path.join(__dirname, "./front/static/"),
+    prefix: "/static/",
+    decorateReply: false,
   });
 
 //register functions
