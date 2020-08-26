@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "serve": "nodemon index.js",
-    "build": "yarn build --cwd && cd .. && nodemon index.js",
     "front-build": "cd front && cross-env NODE_ENV=production webpack --progress --hide-modules",
     "front-dev": "cd front && cross-env NODE_ENV=development webpack-dev-server --hot"
   },
