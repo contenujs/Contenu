@@ -129,7 +129,7 @@ export default {
 
 		if (this.$store.getData() === undefined) {
 			this.$contenuAPI
-				.getData(this.$auth.generateAuthHeader(), this.$store.getContentKey())
+				.getData(this.$auth.generateAuthHeader(), this.$store.getKey())
 				.then(response => {
           			this.loading = false;
 					this.lastUpdate = this.$dayjs(response.data.content.updated_at).fromNow();
@@ -222,7 +222,7 @@ export default {
 		submitChanges() {
 			this.saving(true);
 			this.$contenuAPI
-				.saveData({content: this.$store.getData(), key: this.$store.getContentKey()}, this.$auth.generateAuthHeader())
+				.saveData({content: this.$store.getData(), key: this.$store.getKey()}, this.$auth.generateAuthHeader())
 				.then(response => {
 					this.saving(false);
 					this.saved = true;

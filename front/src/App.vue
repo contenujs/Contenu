@@ -87,8 +87,8 @@ export default {
 		});
 	},
 	mounted() {
-		if(this.$route.query.contentKey)
-			this.$store.setKey(this.$route.query.contentKey);
+		if(this.$route.query.key)
+			this.$store.setKey(this.$route.query.key);
 		this.sendCssRules();
 	},
 	watch: {

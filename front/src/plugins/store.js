@@ -1,17 +1,17 @@
 class Store {
   data = undefined;
-  contentKey = "/";
+  key = "/";
   setData(data) {
     this.data = data;
   }
   getData() {
     return this.data;
   }
-  setContentKey(key) {
-    this.contentKey = key;
+  setKey(key) {
+    this.key = key;
   }
-  getContentKey() {
-    return this.contentKey;
+  getKey() {
+    return this.key;
   }
 }
 export default {
