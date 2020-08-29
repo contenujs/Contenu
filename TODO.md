@@ -1,4 +1,4 @@
 ##TODO
 
-[ ] Support Array content
-[ ] Support Image content
+- [ ] Support Array content
+- [ ] Support Image content
