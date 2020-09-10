@@ -1,6 +1,10 @@
 class Store {
   data = undefined;
   key = "/";
+  dataIsPublished = true;
+  setDataIsPublished(data) {
+    this.dataIsPublished = data;
+  }
   setData(data) {
     this.data = data;
   }
