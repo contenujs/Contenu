@@ -95,7 +95,10 @@
 					@click="submitChanges()"
 					class="mt-1 inline-flex items-center transition duration-100 ease-in-out outline-none focus:outline-none bg-primary-500 hover:bg-primary-600 text-white text-sm font-bold py-2 px-6 rounded"
 				>
-					<Loading v-if="btnLoading" />
+					<Loading
+						v-if="btnLoading"
+						class="fill-current w-4 h-4 mr-2"
+					/>
 					{{submitText}}
 				</button>
 			</div>
