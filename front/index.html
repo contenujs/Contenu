@@ -28,7 +28,13 @@
             if (event.data.type == "init") {
               if (event.data.envMode == "production") {
                 if (window.localStorage.getItem("contenu_token")) {
-                  attachScript();
+                  let token = window.localStorage.getItem("contenu_token").split(".");
+                  try {
+                    let exDate = new Date(JSON.parse(atob(token[1])).exp * 1000);
+                    if (exDate > new Date()) {
+                      attachScript();
+                    }
+                  } catch (err) {}
                 }
               } else {
                 attachScript();
