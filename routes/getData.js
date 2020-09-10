@@ -40,7 +40,12 @@ module.exports = async function(fastify, opts) {
         if (typeof data[key].__value === "object") {
           result[key] = orderData(data[key].__value);
         } else {
-          result[key] = data[key].__value;
+        	if(data[key].__type == "image"){
+        		result[key] = {}
+        		result[key].__value = data[key].__value;
+        		result[key].__type = data[key].__type;
+        	}else
+          		result[key] = data[key].__value;
         }
       }
     }
