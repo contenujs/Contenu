@@ -9,7 +9,9 @@ const fastifyStatic = require("fastify-static");
 fastify
   .register(require("fastify-jwt"), {
     secret: process.env.SECRET_KEY,
-    expiresIn: process.env.JWT_EXPIRE_DAYS || "30d",
+    sign: {
+      expiresIn: process.env.JWT_EXPIRE_DAYS || "30d",
+    },
   })
   .register(require("fastify-cors"))
   .register(require("fastify-mongodb"), {
