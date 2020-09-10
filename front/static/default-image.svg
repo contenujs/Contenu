@@ -1,0 +1,10 @@
+<svg id="Group_2" data-name="Group 2" xmlns="http://www.w3.org/2000/svg" width="220" height="140" viewBox="0 0 220 140">
+  <rect id="Rectangle_1" data-name="Rectangle 1" width="220" height="140" fill="none"/>
+  <text id="or_drag_the_images_here" data-name="or drag the images here" transform="translate(41 123)" fill="#808192" font-size="13" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">or drag the images here</tspan></text>
+  <g id="noun_Image_2761478" transform="translate(74 19)">
+    <g id="Group_1" data-name="Group 1" transform="translate(5 5)">
+      <path id="Path_1" data-name="Path 1" d="M23.044,15.956a7.256,7.256,0,0,1,7.089,7.411,7.256,7.256,0,0,1-7.089,7.411,7.256,7.256,0,0,1-7.089-7.411A7.256,7.256,0,0,1,23.044,15.956Zm0,11.117A3.709,3.709,0,1,0,19.5,23.367,3.628,3.628,0,0,0,23.044,27.072ZM59.375,5A3.623,3.623,0,0,1,63,8.625v50.75A3.623,3.623,0,0,1,59.375,63H8.625A3.623,3.623,0,0,1,5,59.375V8.625A3.623,3.623,0,0,1,8.625,5ZM8.625,57.562a1.8,1.8,0,0,0,.535,1.285A1.812,1.812,0,0,1,8.625,57.562Zm50.75,0V52.121L46.162,38.908a1.812,1.812,0,0,0-2.563,0s-8.728,8.728-10.656,10.658-3.226,1.9-5.126,0l-3.406-3.407a1.812,1.812,0,0,0-2.563,0L9.16,58.848a1.807,1.807,0,0,0,1.278.527H57.562A1.812,1.812,0,0,0,59.375,57.562Zm0-10.567V10.437a1.812,1.812,0,0,0-1.813-1.812H10.437a1.812,1.812,0,0,0-1.812,1.812V54.257L20.568,42.316a3.618,3.618,0,0,1,5.126,0L30.38,47,42.318,35.066a3.618,3.618,0,0,1,5.126,0Z" transform="translate(-5 -5)" fill="#808192"/>
+    </g>
+  </g>
+  <text id="Click_to_upload" data-name="Click to upload" transform="translate(67 107)" fill="#808192" font-size="13" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">Click to upload</tspan></text>
+</svg>
