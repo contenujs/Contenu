@@ -124,7 +124,11 @@ export default {
 			return content;
 		},
 		dataTypeEvents(data, key, lastKeyName) {
-			if (data.__type == "text" || data.__type == "textarea")
+			if (
+				data.__type == "text" ||
+				data.__type == "textarea" ||
+				typeof data.__type == "undefined"
+			)
 				return {
 					keyup: (event) => {
 						data[key] = event.target.value;
@@ -216,7 +220,11 @@ export default {
 							(e) => {
 								if (e.ok) {
 									data.__value = e.file.filename;
-									this.$emit("valueChangedPath", lastKeyName, e.file.filename);
+									this.$emit("valueChangedPath", lastKeyName, {
+										__value: data.__value,
+										__type: "image",
+									});
+									this.$forceUpdate();
 								}
 							}
 						);

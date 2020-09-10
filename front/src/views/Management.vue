@@ -113,18 +113,18 @@ import Loading from "../assets/loading.svg";
 export default {
 	components: {
 		InputGroup,
-		Loading
+		Loading,
 	},
 	data() {
 		return {
-			saved: true,
+			saved: this.$store.dataIsPublished,
 			loading: true,
 			inputs: {},
 			btnLoading: false,
 			submitText: "Publish",
 			submitError: null,
-      		inputGroups: true,
-      		lastUpdate: null
+			inputGroups: true,
+			lastUpdate: null,
 		};
 	},
 	created() {
@@ -133,14 +133,16 @@ export default {
 		if (this.$store.getData() === undefined) {
 			this.$contenuAPI
 				.getData(this.$auth.generateAuthHeader(), this.$store.getKey())
-				.then(response => {
-          			this.loading = false;
-					this.lastUpdate = this.$dayjs(response.data.content.updated_at).fromNow();
+				.then((response) => {
+					this.loading = false;
+					this.lastUpdate = this.$dayjs(
+						response.data.content.updated_at
+					).fromNow();
 					this.inputs = this.processData(response.data.content);
 					this.$store.setData(this.inputs);
 					this.requestForNewFields();
 				})
-				.catch(err => {
+				.catch((err) => {
 					if (err.status == 401) {
 						this.loading = false;
 						this.$auth.removeToken();
@@ -158,7 +160,7 @@ export default {
 	mounted() {
 		window.addEventListener(
 			"message",
-			event => {
+			(event) => {
 				if (event.data.type == "newField") {
 					let data = this.newFieldsHandler(
 						event.data.data,
@@ -201,7 +203,11 @@ export default {
 							delete currentData[key].__type;
 						}
 					}
-					currentData[key] = this.newFieldsHandler(data[key], currentData[key]);
+					if (typeof data[key] === "object")
+						currentData[key] = this.newFieldsHandler(
+							data[key],
+							currentData[key]
+						);
 				}
 			}
 			return currentData;
@@ -210,9 +216,9 @@ export default {
 			let content = {};
 			for (let key in data) {
 				if (typeof data[key] === "object") {
-					if(key === "__value"){
+					if (key === "__value") {
 						content = this.processData(data[key]);
-					}else{
+					} else {
 						content[key] = {};
 						content[key] = this.processData(data[key]);
 					}
@@ -225,12 +231,16 @@ export default {
 		submitChanges() {
 			this.saving(true);
 			this.$contenuAPI
-				.saveData({content: this.$store.getData(), key: this.$store.getKey()}, this.$auth.generateAuthHeader())
-				.then(response => {
+				.saveData(
+					{ content: this.$store.getData(), key: this.$store.getKey() },
+					this.$auth.generateAuthHeader()
+				)
+				.then((response) => {
 					this.saving(false);
 					this.saved = true;
+					this.$store.setDataIsPublished(true);
 				})
-				.catch(error => {
+				.catch((error) => {
 					this.saving(false);
 				});
 		},
@@ -243,7 +253,8 @@ export default {
 			let p = path.split(".");
 			if (p.length == 0) return obj;
 			if (p.length == 1) {
-				obj[path].__value = value;
+				if (path == "__value") obj[path] = value;
+				else obj[path].__value = value;
 				return obj;
 			}
 			if (p.length > 1) {
@@ -269,20 +280,26 @@ export default {
 		},
 		valueChanged(path, data) {
 			this.saved = false;
+			this.$store.setDataIsPublished(false);
 			let obj = this.$store.getData();
-			this.$store.setData(this.changeDeepValue(obj, path, data));
+			if (data.__type === "image") {
+				this.$store.setData(
+					this.changeDeepValue(obj, path + ".__value", data.__value)
+				);
+			} else this.$store.setData(this.changeDeepValue(obj, path, data));
 			if (this.inIframe())
 				parent.postMessage(
 					{
 						type: "dataUpdate",
 						path,
-						data
+						data,
 					},
 					document.referrer
 				);
 		},
 		typeChanged(path, data) {
 			this.saved = false;
+			this.$store.setDataIsPublished(false);
 			let obj = this.$store.getData();
 			this.$store.setData(this.changeDeepType(obj, path, data));
 		},
@@ -292,8 +309,8 @@ export default {
 			} catch (e) {
 				return true;
 			}
-		}
-	}
+		},
+	},
 };
 </script>
 
