@@ -12,16 +12,18 @@
 					v-model="loginPassword"
 				/>
 				<p
-					v-for="error in loginError"
 					class="text-red-500 text-xs italic mb-2"
 					v-if="loginError"
-				>{{error}}</p>
+				>{{loginError}}</p>
 				<div class="text-center">
 					<button
 						@click="login()"
 						class="mt-1 inline-flex items-center transition duration-100 ease-in-out outline-none focus:outline-none bg-primary-500 hover:bg-primary-600 text-white text-sm font-bold py-2 px-6 rounded"
 					>
-						<Loading v-if="loading" />
+						<Loading
+							v-if="loading"
+							class="fill-current w-4 h-4 mr-2"
+						/>
 						{{loginText}}
 					</button>
 				</div>

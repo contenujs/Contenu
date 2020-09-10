@@ -52,10 +52,9 @@
 				>{{confirmPasswordError}}</p>
 
 				<p
-					v-for="e in error"
 					class="text-red-500 text-xs italic mb-2"
 					v-if="error"
-				>{{e}}</p>
+				>{{error}}</p>
 
 				<p
 					class="text-green-500 text-xs mb-2"
@@ -67,7 +66,10 @@
 						@click="resetPassword"
 						class="mt-4 inline-flex items-center transition duration-100 ease-in-out outline-none focus:outline-none bg-primary-500 hover:bg-primary-600 text-white text-sm font-bold py-2 px-6 rounded"
 					>
-						<Loading v-if="loading" />
+						<Loading
+							v-if="loading"
+							class="fill-current w-4 h-4 mr-2"
+						/>
 						{{buttonText}}
 					</button>
 				</div>
