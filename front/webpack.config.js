@@ -1,5 +1,6 @@
 var path = require("path");
 var webpack = require("webpack");
+const express = require("express");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 require("babel-polyfill");
 module.exports = {
@@ -65,12 +66,22 @@ module.exports = {
     noInfo: true,
     overlay: true,
     port: process.env.CLIENT_PORT || 3000,
+    setup(app) {
+      app.use("static/", express.static("./static"));
+    },
   },
   performance: {
     hints: false,
   },
   devtool: "#eval-source-map",
 };
+module.exports.plugins = (module.exports.plugins || []).concat([
+  new webpack.DefinePlugin({
+    "process.env": {
+      NODE_ENV: '"development"',
+    },
+  }),
+]);
 if (process.env.NODE_ENV === "production") {
   module.exports.devtool = "#source-map";
   // http://vue-loader.vuejs.org/en/workflow/production.html
