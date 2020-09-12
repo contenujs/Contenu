@@ -4,6 +4,7 @@ const fastify = require("fastify")({ logger: process.env.DEBUG });
 const autoload = require("fastify-autoload");
 const path = require("path");
 const fastifyStatic = require("fastify-static");
+const proxy = require("fastify-http-proxy");
 
 //register plugins
 fastify
@@ -38,9 +39,15 @@ fastify.register(autoload, {
   options: { prefix: "/api" },
 });
 
-fastify.get("/:uid", async (request, reply) => {
-  return reply.sendFile("./index.html");
-});
+if (process.env.debug)
+  fastify.register(proxy, {
+    upstream: "http://localhost:3000",
+    prefix: "/:uid",
+  });
+else
+  fastify.get("/:uid", async (request, reply) => {
+    return reply.sendFile("./index.html");
+  });
 
 fastify.listen(8080, "0.0.0.0", function(err, address) {
   if (err) {
