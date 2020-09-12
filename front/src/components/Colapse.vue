@@ -2,18 +2,52 @@
 export default {
 	data() {
 		return {
-			open: true
+			open: true,
 		};
 	},
 	props: {
 		children: {
-			required: true
+			required: true,
 		},
 		val: {
-			required: true
-		}
+			required: true,
+		},
 	},
-	render: function(h) {
+	methods: {
+		click() {
+			if (Array.isArray(this.children)) {
+				let sum = 0;
+
+				let el = this.$el.children[1];
+				sum += el.scrollHeight;
+				while (el != undefined) {
+					for (let index in el.children) {
+						if (
+							el.children[index].classList &&
+							el.children[index].classList.contains("hasChildren")
+						) {
+							if (el.children[index].children[1].classList.contains("closed"))
+								sum += el.scrollHeight;
+						}
+					}
+
+					el = el.children[1];
+				}
+				if (this.$el.children[1].style.maxHeight.length === 0)
+					this.$el.children[1].style.maxHeight = sum + "px";
+
+				setTimeout(() => {
+					if (this.open) {
+						this.$el.children[1].style.maxHeight = 0;
+					} else {
+						this.$el.children[1].style.maxHeight = sum + "px";
+					}
+					this.open = !this.open;
+				});
+			}
+		},
+	},
+	render: function (h) {
 		return h(
 			"div",
 			{
@@ -22,8 +56,8 @@ export default {
 					"hasChildren m-auto p-2 ml-2 pr-0 pb-0 pt-0 mb-1 mt-2 max-w-xs border-l-2": Array.isArray(
 						this.children
 					),
-					closed: !this.open
-				}
+					closed: !this.open,
+				},
 			},
 			[
 				h(
@@ -33,43 +67,8 @@ export default {
 							? "parent flex cursor-pointer"
 							: "field-name",
 						on: {
-							click: () => {
-								if (Array.isArray(this.children)) {
-									let sum = 0;
-
-									let el = this.$el.children[1];
-									sum += el.scrollHeight;
-									while (el != undefined) {
-										for (let index in el.children) {
-											if (
-												el.children[index].classList &&
-												el.children[index].classList.contains("hasChildren")
-											) {
-												if (
-													el.children[index].children[1].classList.contains(
-														"closed"
-													)
-												)
-													sum += el.scrollHeight;
-											}
-										}
-
-										el = el.children[1];
-									}
-									if (this.$el.children[1].style.maxHeight.length === 0)
-										this.$el.children[1].style.maxHeight = sum + "px";
-
-									setTimeout(() => {
-										if (this.open) {
-											this.$el.children[1].style.maxHeight = 0;
-										} else {
-											this.$el.children[1].style.maxHeight = sum + "px";
-										}
-										this.open = !this.open;
-									});
-								}
-							}
-						}
+							click: this.click,
+						},
 					},
 
 					!Array.isArray(this.children)
@@ -77,32 +76,32 @@ export default {
 								h(
 									"span",
 									{
-										class: "pr-2 capitalize font-sans text-sm"
+										class: "pr-2 capitalize font-sans text-sm",
 									},
 									this.val
-								)
+								),
 						  ]
 						: [
 								h("button"),
 								h(
 									"span",
 									{
-										class: "pr-2 capitalize font-sans text-sm ml-1 font-light"
+										class: "pr-2 capitalize font-sans text-sm ml-1 font-light",
 									},
 									this.val
-								)
+								),
 						  ]
 				),
 				h(
 					"div",
 					{
-						class: { child: true, closed: !this.open }
+						class: { child: true, closed: !this.open },
 					},
 					[this.children]
-				)
+				),
 			]
 		);
-	}
+	},
 };
 </script>
 <style lang="scss">
