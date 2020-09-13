@@ -1,6 +1,7 @@
 <template>
 	<select
 		class="typeChanger focus:outline-none"
+		:class="{'-mt-4': value.__type == 'image'}"
 		@change="change"
 	>
 		<option

@@ -1,5 +1,5 @@
 <template>
-	<div class="pt-4 fileField relative">
+	<div class="mt-4 fileField relative">
 		<div
 			class="content outline-none appearance-none border border-gray-400 rounded-lg focus:border-primary-500 focus:border-2 w-full transition duration-100 ease-in-out py-1 px-1 text-gray-700 mt-1 text-md leading-tight"
 		>
@@ -202,6 +202,9 @@ export default {
 </script>
 
 <style>
+.fileField {
+	padding-top: 1px;
+}
 .field-name + .child img {
 	max-height: 200px;
 	object-fit: contain;
