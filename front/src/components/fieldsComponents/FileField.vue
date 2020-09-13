@@ -1,14 +1,43 @@
 <template>
-	<div class="pt-4">
-		<img
-			class="outline-none \ inline\ appearance-none \ border \ border-gray-400 \ rounded-lg \ focus:border-primary-500 \ focus:border-2 w-full \ transition \ duration-100 \ ease-in-out \ py-1 \ px-1 \ text-gray-700 \ mt-1 \ text-md \ leading-tight"
-			:src="src"
-			@click="click"
-			@dragenter="dragenter"
-			@dragover="dragover"
-			@drop="drop"
-			@dragleave="dragleave"
-		/>
+	<div class="pt-4 fileField relative">
+		<div
+			class="content outline-none appearance-none border border-gray-400 rounded-lg focus:border-primary-500 focus:border-2 w-full transition duration-100 ease-in-out py-1 px-1 text-gray-700 mt-1 text-md leading-tight"
+		>
+			<img
+				class="rounded"
+				@click="value.__value.length > 0 ? open(src) : click()"
+				:src="src"
+				@dragenter="dragenter"
+				@dragover="dragover"
+				@drop="drop"
+				@dragleave="dragleave"
+			/>
+		</div>
+		<div
+			class="btns absolute top-0 mt-8 right-0 mr-3"
+			v-if="this.value.__value.length > 0"
+		>
+			<button class="focus:outline-none p-0 border text-gray-400 border-gray-400 rounded hover:text-primary-500 hover:border-primary-500 transition duration-75">
+				<ChangeIcon
+					class="outline-none fill-current transition-all duration-75"
+					style="padding: 2px; padding-bottom: 0;"
+					@click="click"
+				/>
+			</button>
+			<button class="focus:outline-none p-0 border text-gray-400 border-gray-400 rounded hover:text-primary-500 hover:border-primary-500 transition duration-75">
+				<DownloadIcon
+					class="fill-current transition-all duration-75"
+					style="padding: 2px;"
+					@click="open(src + '?download=1')"
+				/>
+			</button>
+			<button class="focus:outline-none p-0 border text-gray-400 border-gray-400 rounded hover:text-primary-500 hover:border-primary-500 transition duration-75">
+				<DeleteIcon
+					class="fill-current transition-all duration-75"
+					@click="deleteFile()"
+				/>
+			</button>
+		</div>
 		<div
 			class="progress-bar mt-1 relative"
 			v-if="value.uploading"
@@ -23,11 +52,20 @@
 </template>
 
 <script>
+import DownloadIcon from "../../assets/download.svg";
+import DeleteIcon from "../../assets/delete.svg";
+import ChangeIcon from "../../assets/change.svg";
+
 export default {
 	props: {
 		data: {
 			type: undefined,
 		},
+	},
+	components: {
+		DownloadIcon,
+		DeleteIcon,
+		ChangeIcon,
 	},
 	data() {
 		return {
@@ -48,6 +86,20 @@ export default {
 		},
 	},
 	methods: {
+		open(url) {
+			window.open(url, "_blank");
+		},
+		deleteFile() {
+			this.$contenuAPI.removeFile(
+				this.value.__value,
+				this.$auth.generateAuthHeader()
+			);
+			this.value.__value = "";
+			this.$emit("changed", {
+				__value: "",
+				__type: "image",
+			});
+		},
 		click() {
 			var input = document.createElement("input");
 			input.type = "file";
@@ -156,5 +208,9 @@ export default {
 	cursor: pointer;
 	min-width: 100%;
 	min-height: 150px;
+}
+.fileField .btns svg {
+	height: 20px;
+	width: 20px;
 }
 </style>
