@@ -33,18 +33,19 @@ module.exports = async function(fastify, opts) {
   });
 
   fastify.get("/files/:filename", {
-    handler: async function(request, reply) {
-      gfs
+    handler: function(request, reply) {
+      return gfs
         .find({
           filename: request.params.filename,
         })
-        .toArray((err, files) => {
+        .toArray(async (err, files) => {
           if (!files || files.length === 0) {
-            return reply.status(404).send({
+            reply.status(404).send({
               err: "no files exist",
             });
           }
-          reply.send(gfs.openDownloadStream(files[0]._id));
+          if (request.query.download == 1) reply.send(gfs.openDownloadStream(files[0]._id));
+          else reply.header("Content-Type", files[0].contentType).send(gfs.openDownloadStream(files[0]._id));
         });
     },
   });
