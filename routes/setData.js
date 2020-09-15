@@ -56,13 +56,39 @@ module.exports = async function(fastify, opts) {
         if (typeof data[key].__value === "undefined") {
           lastData[key].__value = orderData(lastData[key].__value, data[key]);
         } else {
-          lastData[key].__value = data[key].__value;
-          if (data[key].__type) lastData[key].__type = data[key].__type;
+          if (data[key].__type) {
+            if (lastData[key].__type === "image" && lastData[key].__value.length > 0) {
+              deleteFile(lastData[key].__value);
+            }
+            lastData[key].__value = data[key].__value;
+            lastData[key].__type = data[key].__type;
+          }
         }
       } else {
         lastData[key] = data[key];
       }
     }
     return lastData;
+  };
+  const GridFSBucket = require("mongodb").GridFSBucket;
+  let gfs = new GridFSBucket(fastify.mongo.db, {
+    bucketName: "fs",
+  });
+  let deleteFile = (filename) => {
+    try {
+      return gfs
+        .find({
+          filename: filename,
+        })
+        .toArray((err, files) => {
+          if (!files || files.length === 0) {
+            return reply.status(404).send({
+              err: "no files exist",
+            });
+          }
+          gfs.delete(files[0]._id);
+          return true;
+        });
+    } catch (err) {}
   };
 };

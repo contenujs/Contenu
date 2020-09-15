@@ -14,7 +14,7 @@
 			/>
 		</div>
 		<div
-			class="btns absolute top-0 mt-8 right-0 mr-3"
+			class="btns absolute top-0 mt-4 right-0 mr-3"
 			v-if="this.value.__value.length > 0"
 		>
 			<button class="focus:outline-none p-0 border text-gray-400 border-gray-400 rounded hover:text-primary-500 hover:border-primary-500 transition duration-75">
@@ -90,10 +90,10 @@ export default {
 			window.open(url, "_blank");
 		},
 		deleteFile() {
-			this.$contenuAPI.removeFile(
-				this.value.__value,
-				this.$auth.generateAuthHeader()
-			);
+			// this.$contenuAPI.removeFile(
+			// 	this.value.__value,
+			// 	this.$auth.generateAuthHeader()
+			// );
 			this.value.__value = "";
 			this.$emit("changed", {
 				__value: "",
