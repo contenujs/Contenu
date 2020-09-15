@@ -82,9 +82,7 @@ module.exports = async function(fastify, opts) {
         })
         .toArray((err, files) => {
           if (!files || files.length === 0) {
-            return reply.status(404).send({
-              err: "no files exist",
-            });
+            return false;
           }
           gfs.delete(files[0]._id);
           return true;
