@@ -1,6 +1,5 @@
 require("dotenv").config();
-
-const fastify = require("fastify")({ logger: process.env.DEBUG });
+const fastify = require("fastify")({ logger: process.env.DEBUG == 'true' ? true : false});
 const autoload = require("fastify-autoload");
 const path = require("path");
 const fastifyStatic = require("fastify-static");
@@ -39,7 +38,7 @@ fastify.register(autoload, {
   options: { prefix: "/api" },
 });
 
-if (process.env.debug)
+if (process.env.DEBUG == 'true')
   fastify.register(proxy, {
     upstream: "http://localhost:3000",
     prefix: "/:uid",
