@@ -60,9 +60,9 @@ module.exports = async function(fastify, opts) {
             if ((lastData[key].__type === "image" && lastData[key].__value != data[key].__value) || (lastData[key].__type === "image" && data[key].__type != "image")) {
               deleteFile(lastData[key].__value);
             }
-            lastData[key].__value = data[key].__value;
-            lastData[key].__type = data[key].__type;
           }
+          lastData[key].__value = data[key].__value;
+          lastData[key].__type = data[key].__type;
         }
       } else {
         lastData[key] = data[key];
