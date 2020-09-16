@@ -17,21 +17,26 @@
 			class="btns absolute top-0 mt-4 right-0 mr-3"
 			v-if="this.value.__value.length > 0"
 		>
-			<button class="focus:outline-none p-0 border text-gray-400 border-gray-400 rounded hover:text-primary-500 hover:border-primary-500 transition duration-75">
+			<button
+				tooltip="New image"
+				class="focus:outline-none bg-white bg-opacity-50 hover:bg-white p-0 border text-gray-500 rounded hover:text-primary-500 hover:border-primary-500 transition duration-75"
+			>
 				<ChangeIcon
 					class="outline-none fill-current transition-all duration-75"
 					style="padding: 2px; padding-bottom: 0;"
 					@click="click"
 				/>
 			</button>
-			<button class="focus:outline-none p-0 border text-gray-400 border-gray-400 rounded hover:text-primary-500 hover:border-primary-500 transition duration-75">
+			<button class="focus:outline-none bg-white bg-opacity-50 hover:bg-white p-0 border text-gray-500 rounded hover:text-primary-500 hover:border-primary-500 transition duration-75">
 				<DownloadIcon
 					class="fill-current transition-all duration-75"
 					style="padding: 2px;"
 					@click="open(src + '?download=1')"
 				/>
 			</button>
-			<button class="focus:outline-none p-0 border text-gray-400 border-gray-400 rounded hover:text-primary-500 hover:border-primary-500 transition duration-75">
+			<button
+				class="focus:outline-none bg-white bg-opacity-50 hover:bg-white p-0 border text-gray-500 border-gray-400 rounded hover:text-primary-500 hover:border-primary-500 transition duration-75"
+			>
 				<DeleteIcon
 					class="fill-current transition-all duration-75"
 					@click="deleteFile()"
