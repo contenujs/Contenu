@@ -57,7 +57,7 @@ module.exports = async function(fastify, opts) {
           lastData[key].__value = orderData(lastData[key].__value, data[key]);
         } else {
           if (data[key].__type) {
-            if (lastData[key].__type === "image" && lastData[key].__value.length > 0) {
+            if ((lastData[key].__type === "image" && lastData[key].__value != data[key].__value) || (lastData[key].__type === "image" && data[key].__type != "image")) {
               deleteFile(lastData[key].__value);
             }
             lastData[key].__value = data[key].__value;
