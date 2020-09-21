@@ -11,6 +11,16 @@ Contenu is a Json-based content management system that focused on simplicity and
 Managing content with Contenu doesn't need to be done on a separate web page. The managing process will happen on your website using a tiny widget that will be shown on the top-right corner. With the widget, you can manage the fields that are needed on your website.
 
 
+#### Supported data types
+  - Text
+  - Textarea
+  - Images
+
 ### Documentation
 
 The [docs](https://contenujs.github.io) are ready here.
+
+
+#### TODO
+  - Supporting Array datatype
+  
