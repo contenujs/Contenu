@@ -18,7 +18,7 @@ Managing content with Contenu doesn't need to be done on a separate web page. Th
 
 ### Documentation
 
-The [docs](https://contenujs.github.io) are ready here.
+The [docs](https://contenujs.gitbook.io/contenu/) are ready here.
 
 
 #### TODO
