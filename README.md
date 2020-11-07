@@ -1,7 +1,6 @@
 # Contenu
 
 
-
 Contenu is a Json-based content management system that focused on simplicity and efficiency. Until this version, Contenu is useful for the one-page websites. But very soon it will grow for bigger scales.
 
 <p align="center">
@@ -18,8 +17,8 @@ Managing content with Contenu doesn't need to be done on a separate web page. Th
 
 ### Documentation
 
-The [docs](https://contenujs.gitbook.io/contenu/) are ready here.
-
+  The [docs](https://contenujs.github.io) are ready here.
+  Ready to receive your suggestions. Make it grow faster.
 
 #### TODO
   - Supporting Array datatype
